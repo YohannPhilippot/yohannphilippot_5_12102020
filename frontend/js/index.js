@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/api/teddies';
+const apiUrl = 'http://localhost:3000/api/teddies/';
 
 //creation de la fonction createNewTag
 function createNewTag (tagName, className, inner, parent, attributes) {
@@ -29,7 +29,7 @@ async function createTeddiesCard(url) {
                 const itemImg = createNewTag('img', 'card-img-top img-responsive', null, itemCard, { 'src': teddy.imageUrl, 'alt': teddy.name })
                 const itemTitle = createNewTag('h3', 'card-title text-center', teddy.name, itemCard, null)
                 const itemPrice = createNewTag('div', 'card-body', teddy.price/100 + 'E', itemCard, null)
-                const itemButton = createNewTag('a', 'btn btn-primary mx-auto mb-3', 'Personnaliser'+ ' ' + teddy.name, itemCard, { 'href': '#' })                    
+                const itemButton = createNewTag('a', 'btn btn-primary mx-auto mb-3', 'Personnaliser'+ ' ' + teddy.name, itemCard, { 'href': 'produit.html?id=' + teddy._id })                    
         }
     } else {
         console.error('Erreur:', response.status)
