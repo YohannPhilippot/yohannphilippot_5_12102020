@@ -49,6 +49,7 @@ async function createTeddyElement(url) {
             id: teddy._id,
             price: teddy.price/100,
             color: selectedColor,
+            img: teddy.imageUrl,
             quantity: 1
         }
         console.log(selectedTeddy)
