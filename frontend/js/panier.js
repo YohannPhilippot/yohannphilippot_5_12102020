@@ -149,6 +149,26 @@ async function createTeddyElement(url) {
 
             const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, null)
 
+
+            sendOrder.addEventListener('click', function () {
+                //creation de l'objet contact
+                let contact = {
+                    prenom: firstNameInput.value,
+                    nom: lastNameInput.value,
+                    adresse: adressInput.value,
+                    ville: cityInput.value,
+                    email: emailInput.value
+                }
+
+                let products = []
+                for (itemInCart of teddiesToCart) {
+                    let productsId = itemInCart.id
+                    products.push(productsId)               
+                }
+                
+            })
+            
+
         } else {
             const panierVide = createNewTag('div', 'col py-3 text-center shadow-lg bg-primary rounded-lg', 'Votre panier est vide ! :(', basePanier, null)
         }
