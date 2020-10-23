@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/api/teddies/';
+const apiUrl = 'http://localhost:3000/api/teddies';
 
 //creation de la fonction createNewTag
 function createNewTag(tagName, className, inner, parent, attributes) {
@@ -84,23 +84,51 @@ async function createTeddyElement(url) {
             const formTitle = createNewTag('h2', 'col-12 pb-3 text-center bg-light', 'Veuillez remplir le formulaire pour valider la commande', contactForm, null)
             const form = document.querySelector('#contactForm')
 
+
+            let testFirstname = false
+            let testLastName = false
+            let testAddress = false
+            let testCity = false
+            let testEmail = false
+
+            console.log(testFirstname)
+
             //fonction de validation de champ du formulaire
-            function valid(input, regex, smallInner) {
+            function valid(input, regex, smallInner, testValid) {
                 let regEx = new RegExp(
                     regex, 'g'
                 )
                 const result = regEx.test(input.value)
 
                 let small = input.nextElementSibling
+                
                 if (result) {
                     input.classList.remove('bg-danger')
                     small.innerHTML = null
+                    testValid = true                  
+                    
                 } else {
                     input.classList.add('bg-danger')
-                    
                     small.innerHTML = smallInner
+                    testValid = false
+                    
+                }
+                return testValid
+                
+                
+            }
+            //fonction d'activation du bouton de soumission du formulaire
+            function enableButton() {
+                if (testFirstname && testLastName && testAddress && testCity && testEmail) {
+                    console.log('test MAIL' + testEmail)
+                    enable = document.getElementById('submitButton')
+                    enable.removeAttribute("disabled")
+                } else {
+                    enable = document.getElementById('submitButton')
+                    enable.setAttribute("disabled", true)
                 }
             }
+
             //element prenom
             const firstName = createNewTag('div', 'form-group col-12', null, contactForm, null)
             const firstNameLabel = createNewTag('label', 'col-6', 'Pr' + '\u00e9' + 'nom', firstName, null)
@@ -108,7 +136,9 @@ async function createTeddyElement(url) {
             const firstNameError = createNewTag('small', 'col-6 text-danger', null, firstName, null)
             //validation du champ prenom
             form.prenom.addEventListener('change', function () {
-                valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -' )               
+                var validFirstName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testFirstname)                        
+                testFirstname = validFirstName    
+                enableButton()
             })
             //element nom
             const lastName = createNewTag('div', 'form-group col-12', null, contactForm, null)
@@ -117,7 +147,9 @@ async function createTeddyElement(url) {
             const lastNameError = createNewTag('small', 'col-6 text-danger', null, lastName, null)
             //validation du champ nom
             form.nom.addEventListener('change', function () {
-                valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -')
+                var validLastName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testLastName)
+                testLastName = validLastName
+                enableButton()
             })
             //element adresse
             const adress = createNewTag('div', 'form-group col-12', null, contactForm, null)
@@ -126,7 +158,9 @@ async function createTeddyElement(url) {
             const adressError = createNewTag('small', 'col-6 text-danger', null, adress, null)
             //validation du champ adresse
             form.adresse.addEventListener('change', function () {
-                valid(this, '^[ 0-9a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules, chiffres . , -')
+                var validAdress = valid(this, '^[ 0-9a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules, chiffres . , -', testAddress)
+                testAddress = validAdress
+                enableButton()
             })
             //element ville
             const city = createNewTag('div', 'form-group col-12', null, contactForm, null)
@@ -135,7 +169,9 @@ async function createTeddyElement(url) {
             const cityError = createNewTag('small', 'col-6 text-danger', null, city, null)
             //validation du champ ville
             form.ville.addEventListener('change', function () {
-                valid(this, '^[0-9]{5}[ ][ 0-9a-zA-Z.,\-]+$', 'Veuillez entrer un code postal a 5 chiffres,un espace, et le nom de la ville')
+                var validCity = valid(this, '^[0-9]{5}[ ][ 0-9a-zA-Z.,\-]+$', 'Veuillez entrer un code postal a 5 chiffres,un espace, et le nom de la ville', testCity)
+                testCity = validCity
+                enableButton()
             })
             //element adresse email
             const email = createNewTag('div', 'form-group col-12', null, contactForm, null)
@@ -144,28 +180,65 @@ async function createTeddyElement(url) {
             const emailError = createNewTag('small', 'col-6 text-danger', null, email, null)
             //validation du champ adresse email
             form.email.addEventListener('change', function () {
-                valid(this, '^[0-9a-zA-Z.,\-]+[@]{1}[0-9a-zA-Z,\-]+[.]{1}[a-zA-Z]{1,10}$', 'Veuillez entrer une adresse mail valide')
+                var validEmail = valid(this, '^[0-9a-zA-Z.,\-]+[@]{1}[0-9a-zA-Z,\-]+[.]{1}[a-zA-Z]{1,10}$', 'Veuillez entrer une adresse mail valide', testEmail)
+                testEmail = validEmail
+                enableButton()
             })
 
-            const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, null)
 
+            
+
+            
+
+            const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, { 'id':'submitButton', 'type': 'button', 'disabled': 'true' })
+            
 
             sendOrder.addEventListener('click', function () {
+
+                
                 //creation de l'objet contact
                 let contact = {
-                    prenom: firstNameInput.value,
-                    nom: lastNameInput.value,
-                    adresse: adressInput.value,
-                    ville: cityInput.value,
+                    firstName: firstNameInput.value,
+                    lastName: lastNameInput.value,
+                    address: adressInput.value,
+                    city: cityInput.value,
                     email: emailInput.value
                 }
 
+                
                 let products = []
                 for (itemInCart of teddiesToCart) {
                     let productsId = itemInCart.id
                     products.push(productsId)               
                 }
+
+                const data = {
+                    contact,
+                    products
+                }
+
+                const jsonData = JSON.stringify(data)
+
+                console.log('data :' + jsonData)
+                const options = {
+                    method: 'POST',
+                    body: jsonData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                console.log(apiUrl + '/order')
+                console.log(options)
+
+                fetch(apiUrl + '/order', options)
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+
                 
+
+                
+                //window.location = 'confirmation.html'
+
             })
             
 
