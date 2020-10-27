@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/api/teddies';
+const apiUrl = 'http://localhost:3000/api/teddies/';
 
 //creation de la fonction createNewTag
 function createNewTag(tagName, className, inner, parent, attributes) {
@@ -11,6 +11,17 @@ function createNewTag(tagName, className, inner, parent, attributes) {
     parent.appendChild(item)
     return item
 }
+
+function cartCount() {
+    const teddiesToCart = JSON.parse(localStorage.getItem('cart'))
+    const itemsInCart = document.getElementById("itemsInCart")
+    if (teddiesToCart) {
+        const itemCount = teddiesToCart.reduce((sum, item) => sum += item.quantity, 0)
+        const itemElement = createNewTag('span', 'col d-none d-lg-block bg-primary text-light px-2 rounded-circle', itemCount, itemsInCart, null)
+    }
+}
+
+cartCount()
 
 //creation de la base du panier
 const basePanier = document.getElementById('panierBase')
@@ -33,9 +44,9 @@ async function createTeddyElement(url) {
 
         for (const itemInCart of teddiesToCart) {
             
-            const newItemRow = createNewTag('article', 'row mb-3 p-4 bg-primary shadow-lg border border-dark rounded-lg', null, itemRow, null)
+            const newItemRow = createNewTag('article', 'row mb-5 p-4 bg-basket shadow-lg border border-dark rounded-lg', null, itemRow, null)
             const itemLink = createNewTag('a', 'col-4', null, newItemRow, {'href':'produit.html?id=' + itemInCart.id})
-            const itemImg = createNewTag('img', 'mw-100 shadow-lg border border-dark rounded-lg', null, itemLink, {'src': itemInCart.img} )
+            const itemImg = createNewTag('img', 'mw-100 shadow border border-dark rounded-lg', null, itemLink, {'src': itemInCart.img} )
             const itemName = createNewTag('div', 'col-8 col-xl-4 p-xl-5 my-1 my-xl-auto text-center text-xl-left font-weight-bold', itemInCart.name, newItemRow, null)
             const itemPrice = createNewTag('div', 'col-12 col-xl-8 my-1 my-xl-3 bg-light border border-dark rounded-lg', 'Prix: ' + itemInCart.price + '\u20ac', itemName, null)
             const itemQuantity = createNewTag('p', 'col-12 col-xl-8 my-1 my-xl-3 bg-light border border-dark rounded-lg', 'Quantit' + '\u00e9'+' : ' + itemInCart.quantity , itemName, null)
@@ -59,7 +70,7 @@ async function createTeddyElement(url) {
         }
 
         if (teddiesToCart.length >= 1) {
-            const clearCart = createNewTag('button', 'col-6 mx-auto', 'Vider le panier !', basePanier, null)
+            const clearCart = createNewTag('button', 'col-6 mx-auto btn-danger', 'Vider le panier !', basePanier, null)
             //evenement suppression du panier
             clearCart.addEventListener('click', function () {
                 localStorage.removeItem('cart')
@@ -77,7 +88,7 @@ async function createTeddyElement(url) {
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
             let orderPrice = cartTotal.reduce(reducer)
 
-            const cartPrice = createNewTag('div', 'col-12 mt-3 text-center', 'Montant de la commande : ' + orderPrice + '\u20ac', basePanier, null)
+            const cartPrice = createNewTag('div', 'col-12 mt-3 text-center font-weight-bold display-4', 'Montant de la commande : ' + orderPrice + '\u20ac', basePanier, null)
 
             //creation du formulaire de contact
             const contactForm = createNewTag('form', 'row py-3 my-5 bg-light', null, basePanier, { 'id': 'contactForm' })
@@ -190,7 +201,7 @@ async function createTeddyElement(url) {
 
             
 
-            const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, { 'id':'submitButton', 'type': 'button', 'disabled': 'true' })
+            const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, { 'id':'submitButton', 'href': '/confirmation.html', 'type': 'button', 'disabled': 'true' })
             
 
             sendOrder.addEventListener('click', function () {
@@ -205,21 +216,21 @@ async function createTeddyElement(url) {
                     email: emailInput.value
                 }
 
-                
+                //creation du tableau de produit
                 let products = []
                 for (itemInCart of teddiesToCart) {
                     let productsId = itemInCart.id
                     products.push(productsId)               
                 }
 
+                //creation d'un objet regroupant contact et products
                 const data = {
                     contact,
                     products
                 }
 
-                const jsonData = JSON.stringify(data)
-
-                console.log('data :' + jsonData)
+                //envoi des données au serveur avec une requête POST
+                const jsonData = JSON.stringify(data)          
                 const options = {
                     method: 'POST',
                     body: jsonData,
@@ -227,23 +238,21 @@ async function createTeddyElement(url) {
                         'Content-Type': 'application/json'
                     }
                 }
-                console.log(apiUrl + '/order')
-                console.log(options)
+                
 
-                fetch(apiUrl + '/order', options)
+                fetch(apiUrl + 'order', options)
                     .then(res => res.json())
-                    .then(res => console.log(res))
+                    .then(res => localStorage.setItem('orderId', res.orderId))
 
-                
+                localStorage.setItem('totalPrice', orderPrice)
+                document.location.href = 'confirmation.html'
 
-                
-                //window.location = 'confirmation.html'
-
+                localStorage.removeItem('cart')
             })
             
 
         } else {
-            const panierVide = createNewTag('div', 'col py-3 text-center shadow-lg bg-primary rounded-lg', 'Votre panier est vide ! :(', basePanier, null)
+            const panierVide = createNewTag('h3', 'col py-3 text-center shadow-lg bg-primary rounded-lg', 'Votre panier est vide ! :(', basePanier, null)
         }
         
         

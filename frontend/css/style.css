@@ -1,0 +1,50 @@
+.bg-orinoco {
+  background-color: #f3e9f1;
+}
+
+.btn-primary {
+  background-color: #8c62e3;
+  border-color: #8c62e3;
+}
+.btn-primary:hover {
+  background-color: #9c78e7 !important;
+  border-color: #8c62e3 !important;
+}
+.btn-primary:active {
+  background-color: #9c78e7 !important;
+  border-color: #8c62e3 !important;
+}
+.btn-primary:visited {
+  background-color: #9c78e7 !important;
+  border-color: #8c62e3 !important;
+}
+.btn-primary:focus {
+  background-color: #9c78e7 !important;
+  border-color: #8c62e3 !important;
+}
+
+.bg-primary {
+  background-color: #8c62e3 !important;
+}
+
+.bg-secondary {
+  background-color: #f3e9f1 !important;
+}
+
+.bg-basket {
+  background-color: #a066be;
+}
+
+.shadow-lg {
+  box-shadow: 10px 10px 10px #000000 !important;
+}
+
+.shadow {
+  box-shadow: 5px 5px 10px #000000 !important;
+}
+
+#itemChosen {
+  box-shadow: 5px 5px 10px #000000;
+}
+
+/*# sourceMappingURL=style.css.map */

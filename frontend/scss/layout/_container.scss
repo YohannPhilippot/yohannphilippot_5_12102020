@@ -1,0 +1,48 @@
+﻿.btn-primary {
+    background-color: $bg-primary;
+    border-color: $bg-primary;
+
+    &:hover {
+        background-color: lighten($bg-primary, 5%)!important;
+        border-color: $bg-primary!important;
+    }
+
+    &:active {
+        background-color: lighten($bg-primary, 5%)!important;
+        border-color: $bg-primary!important;
+    }
+
+    &:visited {
+        background-color: lighten($bg-primary, 5%)!important;
+        border-color: $bg-primary!important;
+    }
+
+    &:focus {
+        background-color: lighten($bg-primary, 5%)!important;
+        border-color: $bg-primary!important;
+    }
+}
+
+.bg-primary {
+    background-color: $bg-primary!important;
+}
+
+.bg-secondary {
+    background-color: $bg-orinoco!important;
+}
+
+.bg-basket {
+    background-color: #a066be;
+}
+
+.shadow-lg {
+    box-shadow: 10px 10px 10px #000000 !important;
+}
+
+.shadow {
+    box-shadow: 5px 5px 10px #000000!important;
+}
+
+#itemChosen {
+    box-shadow: 5px 5px 10px #000000;
+}

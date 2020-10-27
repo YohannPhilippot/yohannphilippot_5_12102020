@@ -3,55 +3,45 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Orinoco - Teddies est un site de vente en ligne d'ours en peluche réalisés à la main par nos meilleurs artisans, venez découvrir nos produits !" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title></title>
+    <link rel="stylesheet" href="frontend/css/style.css" />
+    <title>Orinoco - Teddies</title>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <nav class="col navbar navbar-expand-lg bg-orinoco static-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="http://placehold.it/150x50?text=Logo" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="panier.html">Mon panier</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
+                <img src="images/orinoco-logo.jpg" alt="Logo d'Orinoco">
+            </a>                 
+            <ul class="navbar-nav ml-auto">                
+                <li class="nav-item">
+                    <a class="nav-link"  href="panier.html">
+                        <img src="images/panier-orinoco.png" alt="Logo de panier">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <p id="itemsInCart"></p>
+                </li>
+            </ul>       
         </div>
     </nav>
 
     <!-- Page Content -->
     <div class="container">
-        <h1 class="mt-4">Logo Nav by Start Bootstrap</h1>
-        <p>The logo in the navbar is now a default Bootstrap feature in Bootstrap 4! Make sure to set the width and height of the logo within the HTML or with CSS. For best results, use an SVG image as your logo.</p>
+        <h1 class="mt-4 text-center">Orinoco - Teddies</h1>
+        <p class="text-center">Bienvenue dans la section Teddies d'Orinoco ! Tous nos ours en peluche sont faits mains !</p>
     </div>
     <!-- /.container -->
     <!-- Page Content -->
     <div class="container">
 
         <!-- Page Heading -->
-        <h1 class="my-4">
-            Teddies List
-            <small>Secondary Text</small>
-        </h1>
+        <h2 class="my-5">
+            Notre choix de Teddies :
+        </h2>
 
         <div class="row" id="itemList">           
         </div>
