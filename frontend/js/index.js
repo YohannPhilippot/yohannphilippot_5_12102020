@@ -32,9 +32,10 @@ async function createTeddiesCard(url) {
         for (let teddy of teddiesInfo) {
             //creation des cartes teddies avec la fonction createNewTag
             const itemRow = document.getElementById('itemList')
-            const itemCol = createNewTag('div', 'col-lg-6 col-sm-4 mb-4', null, itemRow, null)
-            const itemCard = createNewTag('div', 'card shadow', null, itemCol, null)
-            const itemImg = createNewTag('img', 'card-img-top img-responsive', null, itemCard, { 'src': teddy.imageUrl, 'alt': teddy.name })
+            const itemCol = createNewTag('div', 'col-lg-5 offset-lg-1 col-sm-4 mb-4', null, itemRow, null)
+            const itemCard = createNewTag('div', 'card cardsize shadow', null, itemCol, null)
+            const itemImgContainer = createNewTag('div', 'cardImgSize', null, itemCard, null)
+            const itemImg = createNewTag('img', 'card-img-top img-responsive', null, itemImgContainer, { 'src': teddy.imageUrl, 'alt': teddy.name })
             const itemTitle = createNewTag('h3', 'card-title text-center', teddy.name, itemCard, null)
             const itemPrice = createNewTag('div', 'card-body', teddy.price / 100 + '\u20ac', itemCard, null)
             const itemButton = createNewTag('a', 'btn btn-primary mx-auto mb-3', 'Personnaliser'+ ' ' + teddy.name, itemCard, { 'href': 'produit.html?id=' + teddy._id })                    

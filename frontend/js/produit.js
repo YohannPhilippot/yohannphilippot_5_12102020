@@ -85,8 +85,13 @@ async function createTeddyElement(url) {
 
                 localStorage.setItem('cart', JSON.stringify(teddiesToCart))
 
-                alert(teddy.name + ' ' + 'a ete ajoute au panier !')
-
+                if (confirm(teddy.name + ' ' + 'a ete ajoute au panier! Souhaitez-vous passer commande?')) {
+                    location.href = 'panier.html'
+                }
+                else {
+                    location.href = 'index.html'
+                }
+              
             }
         }
         )

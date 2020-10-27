@@ -46,3 +46,18 @@
 #itemChosen {
     box-shadow: 5px 5px 10px #000000;
 }
+
+.cardsize {
+    
+    height:400px; 
+    
+    .cardImgSize {
+    
+
+        img{
+            width:100%!important;
+            max-height:250px;
+            object-fit:fill;
+        }
+    }
+}
