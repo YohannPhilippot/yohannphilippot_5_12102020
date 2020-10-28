@@ -47,11 +47,11 @@ async function createTeddyElement(url) {
             const newItemRow = createNewTag('article', 'row mb-5 p-4 bg-basket shadow-lg border border-dark rounded-lg', null, itemRow, null)
             const itemLink = createNewTag('a', 'col-4', null, newItemRow, {'href':'produit.html?id=' + itemInCart.id})
             const itemImg = createNewTag('img', 'mw-100 shadow border border-dark rounded-lg', null, itemLink, {'src': itemInCart.img} )
-            const itemName = createNewTag('div', 'col-8 col-xl-4 p-xl-5 my-1 my-xl-auto text-center text-xl-left font-weight-bold', itemInCart.name, newItemRow, null)
+            const itemName = createNewTag('div', 'col-8 col-xl-4 p-xl-5 my-1 my-xl-auto text-center text-xl-left font-weight-bold', itemInCart.name + ' (' + itemInCart.color + ')', newItemRow, null)
             const itemPrice = createNewTag('div', 'col-12 col-xl-8 my-1 my-xl-3 bg-light border border-dark rounded-lg', 'Prix: ' + itemInCart.price + '\u20ac', itemName, null)
             const itemQuantity = createNewTag('p', 'col-12 col-xl-8 my-1 my-xl-3 bg-light border border-dark rounded-lg', 'Quantit' + '\u00e9'+' : ' + itemInCart.quantity , itemName, null)
-            const totalPrice = createNewTag('div', 'col-6 col-md-4 mx-auto my-auto text-center bg-light border border-dark rounded-lg', 'Total article : ' + itemInCart.price * itemInCart.quantity + '\u20ac', newItemRow, null)
-            const deleteItem = createNewTag('button', 'col-6 col-xl-2 offset-3 offset-xl-5 mt-3 text-center bg-light border border-dark rounded-lg', 'Retirer du panier', newItemRow, { 'data-id': itemInCart.id })
+            const totalPrice = createNewTag('div', 'col-12 col-xl-6 col-md-4 mx-auto my-auto text-center bg-light border border-dark rounded-lg', 'Total article : ' + itemInCart.price * itemInCart.quantity + '\u20ac', newItemRow, null)
+            const deleteItem = createNewTag('button', 'col-12 col-lg-6 col-xl-2 offset-lg-3 offset-xl-5 mt-3 text-center bg-light border border-dark rounded-lg', 'Retirer du panier', newItemRow, { 'data-id': itemInCart.id })
             
             
             
@@ -88,11 +88,11 @@ async function createTeddyElement(url) {
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
             let orderPrice = cartTotal.reduce(reducer)
 
-            const cartPrice = createNewTag('div', 'col-12 mt-3 text-center font-weight-bold display-4', 'Montant de la commande : ' + orderPrice + '\u20ac', basePanier, null)
+            const cartPrice = createNewTag('div', 'col-12 mt-3 text-center font-weight-bold h2', 'Montant de la commande : ' + orderPrice + '\u20ac', basePanier, null)
 
             //creation du formulaire de contact
             const contactForm = createNewTag('form', 'row py-3 my-5 bg-light', null, basePanier, { 'id': 'contactForm' })
-            const formTitle = createNewTag('h2', 'col-12 pb-3 text-center bg-light', 'Veuillez remplir le formulaire pour valider la commande', contactForm, null)
+            const formTitle = createNewTag('h2', 'col-12 pb-3 h5 text-center bg-light', 'Veuillez remplir le formulaire pour valider la commande', contactForm, null)
             const form = document.querySelector('#contactForm')
 
 
@@ -102,8 +102,7 @@ async function createTeddyElement(url) {
             let testCity = false
             let testEmail = false
 
-            console.log(testFirstname)
-
+           
             //fonction de validation de champ du formulaire
             function valid(input, regex, smallInner, testValid) {
                 let regEx = new RegExp(
@@ -142,9 +141,9 @@ async function createTeddyElement(url) {
 
             //element prenom
             const firstName = createNewTag('div', 'form-group col-12', null, contactForm, null)
-            const firstNameLabel = createNewTag('label', 'col-6', 'Pr' + '\u00e9' + 'nom', firstName, null)
-            const firstNameInput = createNewTag('input', 'form-control col-6 mx-3', null, firstName, { 'name': 'prenom', 'type': 'text', 'placeholder': 'Michel', 'required': true })
-            const firstNameError = createNewTag('small', 'col-6 text-danger', null, firstName, null)
+            const firstNameLabel = createNewTag('label', 'col-lg-6', 'Pr' + '\u00e9' + 'nom', firstName, null)
+            const firstNameInput = createNewTag('input', 'form-control col-lg-6 mx-lg-3', null, firstName, { 'name': 'prenom', 'type': 'text', 'placeholder': 'Michel', 'required': true })
+            const firstNameError = createNewTag('small', 'col-lg-6 text-danger', null, firstName, null)
             //validation du champ prenom
             form.prenom.addEventListener('change', function () {
                 var validFirstName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testFirstname)                        
@@ -153,9 +152,9 @@ async function createTeddyElement(url) {
             })
             //element nom
             const lastName = createNewTag('div', 'form-group col-12', null, contactForm, null)
-            const lastNameLabel = createNewTag('label', 'col-6', 'Nom', lastName, null)
-            const lastNameInput = createNewTag('input', 'form-control col-6 mx-3', null, lastName, { 'name': 'nom', 'type': 'text', 'placeholder': 'Dupont', 'required': 'true' })
-            const lastNameError = createNewTag('small', 'col-6 text-danger', null, lastName, null)
+            const lastNameLabel = createNewTag('label', 'col-lg-6', 'Nom', lastName, null)
+            const lastNameInput = createNewTag('input', 'form-control col-lg-6 mx-lg-3', null, lastName, { 'name': 'nom', 'type': 'text', 'placeholder': 'Dupont', 'required': 'true' })
+            const lastNameError = createNewTag('small', 'col-lg-6 text-danger', null, lastName, null)
             //validation du champ nom
             form.nom.addEventListener('change', function () {
                 var validLastName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testLastName)
@@ -164,9 +163,9 @@ async function createTeddyElement(url) {
             })
             //element adresse
             const adress = createNewTag('div', 'form-group col-12', null, contactForm, null)
-            const adressLabel = createNewTag('label', 'col-6', 'Adresse', adress, null)
-            const adressInput = createNewTag('input', 'form-control col-6 mx-3', null, adress, { 'name': 'adresse', 'type': 'text', 'placeholder': '10 rue des bois', 'required': true })
-            const adressError = createNewTag('small', 'col-6 text-danger', null, adress, null)
+            const adressLabel = createNewTag('label', 'col-lg-6', 'Adresse', adress, null)
+            const adressInput = createNewTag('input', 'form-control col-lg-6 mx-lg-3', null, adress, { 'name': 'adresse', 'type': 'text', 'placeholder': '10 rue des bois', 'required': true })
+            const adressError = createNewTag('small', 'col-lg-6 text-danger', null, adress, null)
             //validation du champ adresse
             form.adresse.addEventListener('change', function () {
                 var validAdress = valid(this, '^[ 0-9a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules, chiffres . , -', testAddress)
@@ -175,9 +174,9 @@ async function createTeddyElement(url) {
             })
             //element ville
             const city = createNewTag('div', 'form-group col-12', null, contactForm, null)
-            const cityLabel = createNewTag('label', 'col-6', 'Code Postal et Ville', city, null)
-            const cityInput = createNewTag('input', 'form-control col-6 mx-3', null, city, { 'name': 'ville', 'type': 'text', 'placeholder': '75000 Paris', 'required': true })
-            const cityError = createNewTag('small', 'col-6 text-danger', null, city, null)
+            const cityLabel = createNewTag('label', 'col-lg-6', 'Code Postal et Ville', city, null)
+            const cityInput = createNewTag('input', 'form-control col-lg-6 mx-lg-3', null, city, { 'name': 'ville', 'type': 'text', 'placeholder': '75000 Paris', 'required': true })
+            const cityError = createNewTag('small', 'col-lg-6 text-danger', null, city, null)
             //validation du champ ville
             form.ville.addEventListener('change', function () {
                 var validCity = valid(this, '^[0-9]{5}[ ][ 0-9a-zA-Z.,\-]+$', 'Veuillez entrer un code postal a 5 chiffres,un espace, et le nom de la ville', testCity)
@@ -186,9 +185,9 @@ async function createTeddyElement(url) {
             })
             //element adresse email
             const email = createNewTag('div', 'form-group col-12', null, contactForm, null)
-            const emailLabel = createNewTag('label', 'col-6', 'E-mail', email, null)
-            const emailInput = createNewTag('input', 'form-control col-6 mx-3', null, email, { 'name': 'email', 'type': 'email', 'placeholder': 'dupont.michel@wanadoo.com', 'required': true })
-            const emailError = createNewTag('small', 'col-6 text-danger', null, email, null)
+            const emailLabel = createNewTag('label', 'col-lg-6', 'E-mail', email, null)
+            const emailInput = createNewTag('input', 'form-control col-lg-6 mx-lg-3', null, email, { 'name': 'email', 'type': 'email', 'placeholder': 'dupont.michel@wanadoo.com', 'required': true })
+            const emailError = createNewTag('small', 'col-lg-6 text-danger', null, email, null)
             //validation du champ adresse email
             form.email.addEventListener('change', function () {
                 var validEmail = valid(this, '^[0-9a-zA-Z.,\-]+[@]{1}[0-9a-zA-Z,\-]+[.]{1}[a-zA-Z]{1,10}$', 'Veuillez entrer une adresse mail valide', testEmail)
@@ -201,7 +200,7 @@ async function createTeddyElement(url) {
 
             
 
-            const sendOrder = createNewTag('button', 'col-4 offset-4 my-3 rounded-lg', 'Passer commande !', contactForm, { 'id':'submitButton', 'href': '/confirmation.html', 'type': 'button', 'disabled': 'true' })
+            const sendOrder = createNewTag('button', 'col-10 offset-1 col-md-4 offset-md-4 my-3 rounded-lg', 'Passer commande !', contactForm, { 'id':'submitButton', 'href': '/confirmation.html', 'type': 'button', 'disabled': 'true' })
             
 
             sendOrder.addEventListener('click', function () {
@@ -230,7 +229,8 @@ async function createTeddyElement(url) {
                 }
 
                 //envoi des données au serveur avec une requête POST
-                const jsonData = JSON.stringify(data)          
+                const jsonData = JSON.stringify(data)
+                
                 const options = {
                     method: 'POST',
                     body: jsonData,

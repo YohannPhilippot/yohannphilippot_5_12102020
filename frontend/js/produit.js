@@ -49,34 +49,33 @@ async function createTeddyElement(url) {
 
         //Remplissage balise select avec le tableau Colors de l'API
         const select = document.getElementById("colorSelect");
-        for (let i = 0; i < teddy.colors.length; i++) {
-            const colorChoice = createNewTag('option', null, teddy.colors[i], itemColor, { 'id': 'colorChoice' })
+        for (const selectedColor of teddy.colors) {
+            const colorChoice = createNewTag('option', null, selectedColor, itemColor, { 'value': selectedColor })
         }
 
-        let selectedColor = document.getElementById('colorSelect').options[document.getElementById('colorSelect').selectedIndex].text;
 
-        let selectedTeddy = {
-            name: teddy.name,
-            id: teddy._id,
-            price: teddy.price/100,
-            color: selectedColor,
-            img: teddy.imageUrl,
-            quantity: 1
-        }
-        console.log(selectedTeddy)
         // ajout du teddy selectionné au localStorage
 
-        
-        
         const addToCart = document.getElementById("addToCart")
         addToCart.addEventListener('click', function () {
+
+            let selectedTeddy = {
+                name: teddy.name,
+                id: teddy._id,
+                price: teddy.price / 100,
+                color: select.value,
+                img: teddy.imageUrl,
+                quantity: 1
+            }
+            console.log(selectedTeddy)
+
             let teddiesToCart = JSON.parse(localStorage.getItem('cart'))
             if (teddiesToCart === null || teddiesToCart === undefined) {
                 teddiesToCart = []
             }
 
             if (teddiesToCart) {
-                const productInCart = teddiesToCart.find(elem => elem.id == teddy._id && elem.color == selectedColor)
+                const productInCart = teddiesToCart.find(elem => elem.id == teddy._id && elem.color == select.value)
                 if (productInCart === undefined) {
                     teddiesToCart.push(selectedTeddy)
                 } else {

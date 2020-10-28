@@ -1,4 +1,9 @@
-﻿.btn-primary {
+﻿html {
+    position:relative;
+    min-height:100%;
+}
+
+.btn-primary {
     background-color: $bg-primary;
     border-color: $bg-primary;
 
@@ -60,4 +65,9 @@
             object-fit:fill;
         }
     }
+}
+
+.footer {
+    position:absolute;
+    bottom:0;
 }
