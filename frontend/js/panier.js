@@ -146,7 +146,7 @@ async function createTeddyElement(url) {
             const firstNameError = createNewTag('small', 'col-lg-6 text-danger', null, firstName, null)
             //validation du champ prenom
             form.prenom.addEventListener('change', function () {
-                var validFirstName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testFirstname)                        
+                var validFirstName = valid(this, '^[a-zA-Z\u00C0-\u017F.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testFirstname)                        
                 testFirstname = validFirstName    
                 enableButton()
             })
@@ -157,7 +157,7 @@ async function createTeddyElement(url) {
             const lastNameError = createNewTag('small', 'col-lg-6 text-danger', null, lastName, null)
             //validation du champ nom
             form.nom.addEventListener('change', function () {
-                var validLastName = valid(this, '^[a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testLastName)
+                var validLastName = valid(this, '^[a-zA-Z\u00C0-\u017F.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules . , -', testLastName)
                 testLastName = validLastName
                 enableButton()
             })
@@ -168,7 +168,7 @@ async function createTeddyElement(url) {
             const adressError = createNewTag('small', 'col-lg-6 text-danger', null, adress, null)
             //validation du champ adresse
             form.adresse.addEventListener('change', function () {
-                var validAdress = valid(this, '^[ 0-9a-zA-Z.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules, chiffres . , -', testAddress)
+                var validAdress = valid(this, '^[ 0-9a-zA-Z\u00C0-\u017F.,\-]+$', 'Caract' + '\u00e8' + 'res accept' + '\u00e9' + 's: minuscules, majuscules, chiffres . , -', testAddress)
                 testAddress = validAdress
                 enableButton()
             })
@@ -179,7 +179,7 @@ async function createTeddyElement(url) {
             const cityError = createNewTag('small', 'col-lg-6 text-danger', null, city, null)
             //validation du champ ville
             form.ville.addEventListener('change', function () {
-                var validCity = valid(this, '^[0-9]{5}[ ][ 0-9a-zA-Z.,\-]+$', 'Veuillez entrer un code postal a 5 chiffres,un espace, et le nom de la ville', testCity)
+                var validCity = valid(this, '^[0-9]{5}[ ][ 0-9a-zA-Z\u00C0-\u017F.,\-]+$', 'Veuillez entrer un code postal a 5 chiffres,un espace, et le nom de la ville', testCity)
                 testCity = validCity
                 enableButton()
             })
@@ -190,7 +190,7 @@ async function createTeddyElement(url) {
             const emailError = createNewTag('small', 'col-lg-6 text-danger', null, email, null)
             //validation du champ adresse email
             form.email.addEventListener('change', function () {
-                var validEmail = valid(this, '^[0-9a-zA-Z.,\-]+[@]{1}[0-9a-zA-Z,\-]+[.]{1}[a-zA-Z]{1,10}$', 'Veuillez entrer une adresse mail valide', testEmail)
+                var validEmail = valid(this, '^[0-9a-zA-Z\u00C0-\u017F.,\-]+[@]{1}[0-9a-zA-Z,\-]+[.]{1}[a-zA-Z]{1,10}$', 'Veuillez entrer une adresse mail valide', testEmail)
                 testEmail = validEmail
                 enableButton()
             })
@@ -249,10 +249,14 @@ async function createTeddyElement(url) {
 
                 localStorage.removeItem('cart')
             })
-            
+            const footer = document.querySelector('footer')
+            console.log(footer)
+            footer.classList.remove('footer')
 
         } else {
             const panierVide = createNewTag('h3', 'col py-3 text-center shadow-lg bg-primary rounded-lg', 'Votre panier est vide ! :(', basePanier, null)
+            
+            
         }
         
         

@@ -3,8 +3,23 @@
 }
 
 html {
+  height: 100%;
+}
+
+body {
   position: relative;
-  min-height: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 5rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0px !important;
+}
+
+.fixedfooter {
+  position: fixed;
 }
 
 .btn-primary {
@@ -59,11 +74,6 @@ html {
   width: 100% !important;
   max-height: 250px;
   object-fit: fill;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
