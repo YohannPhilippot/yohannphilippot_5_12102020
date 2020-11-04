@@ -13,6 +13,9 @@ body {
 .footer {
     position:absolute;
     bottom:0px!important;   
+    @media all and (max-width:1024px) {
+        position:relative;
+    }
 }
 
 .fixedfooter {
