@@ -1,27 +1,3 @@
-const apiUrl = 'http://localhost:3000/api/teddies/';
-
-//creation de la fonction createNewTag
-function createNewTag (tagName, className, inner, parent, attributes) {
-    const item = document.createElement(tagName)
-    item.className = className
-    item.innerHTML = inner
-    for (const id in attributes) {
-        item.setAttribute(id, attributes[id])
-    }
-    parent.appendChild(item)
-    return item
-}
-
-function cartCount() {
-    const teddiesToCart = JSON.parse(localStorage.getItem('cart'))
-    const itemsInCart = document.getElementById("itemsInCart")
-    if (teddiesToCart) {
-        const itemCount = teddiesToCart.reduce((sum, item) => sum += item.quantity, 0)
-        const itemElement = createNewTag('span', 'col d-none d-lg-block bg-primary text-light px-2 rounded-circle', itemCount, itemsInCart, null)
-    }
-}
-
-cartCount()
 async function createTeddiesCard(url) {
     //recuperation des donnees de l'api
     let res = await fetch(url)
